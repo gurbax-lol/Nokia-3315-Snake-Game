@@ -21,6 +21,26 @@ screen.onkey(snake.left, "Left")
 screen.onkey(snake.right, "Right")
 
 game_is_on = True
+
+
+def detect_wall_collision():
+    if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
+        global game_is_on
+        game_is_on = False
+        scoreboard.game_over()
+
+
+def loop_over_walls():
+    if snake.head.xcor() > 290:  # If the snake has reached the left edge,
+        snake.head.goto(-290, snake.head.ycor())  # loop over to the right edge.
+    if snake.head.xcor() < -290:  # If the snake has reached the right edge,
+        snake.head.goto(290, snake.head.ycor())  # loop over to the left edge.
+    if snake.head.ycor() > 290:  # If the snake has reached the up edge,
+        snake.head.goto(snake.head.xcor(), -290)  # loop over to the down edge.
+    if snake.head.ycor() < -290:  # If the snake has reached the down edge,
+        snake.head.goto(snake.head.xcor(), 290)  # loop over to the up edge.
+
+
 while game_is_on:
     screen.update()
     sleep(0.1)
@@ -30,19 +50,9 @@ while game_is_on:
         food.generate_food()
         scoreboard.increase_score()
     # Detect running into a wall,
-    # disable this if you want to play the version where the snake does not collide with the wall
-    # if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
-    #     game_is_on = False
-    #     scoreboard.game_over()
+    # detect_wall_collision()
     # Start from the opposite edge if the snake has reached the screen's edge
-    if snake.head.xcor() > 290:  # If the snake has reached the left edge,
-        snake.head.goto(-290, snake.head.ycor())  # loop over to the right edge.
-    if snake.head.xcor() < -290:  # If the snake has reached the right edge,
-        snake.head.goto(290, snake.head.ycor())  # loop over to the left edge.
-    if snake.head.ycor() > 290:  # If the snake has reached the up edge,
-        snake.head.goto(snake.head.xcor(), -290)  # loop over to the down edge.
-    if snake.head.ycor() < -290:  # If the snake has reached the down edge,
-        snake.head.goto(snake.head.xcor(), 290)  # loop over to the up edge.
+    # loop_over_walls()
 
 
 

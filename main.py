@@ -2,6 +2,7 @@ from turtle import Screen
 from time import sleep
 from snake import Snake
 from food import Food
+from scoreboard import Scoreboard
 
 screen = Screen()
 screen.setup(width=600, height=600)
@@ -11,6 +12,7 @@ screen.bgcolor("dark olive green")
 screen.title("Nokia 3315 Snake Game")
 snake = Snake()
 food = Food()
+scoreboard = Scoreboard()
 
 screen.listen()
 screen.onkey(snake.up, "Up")
@@ -25,6 +27,7 @@ while game_is_on:
     snake.move()
     if snake.head.distance(food) < 15:
         food.generate_food()
+        scoreboard.increase_score()
 
 
 

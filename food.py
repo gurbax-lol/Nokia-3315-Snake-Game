@@ -2,6 +2,7 @@ from turtle import Turtle
 from random import randint
 #TODO: Generate Super Food
 
+
 class Food(Turtle):
     def __init__(self):
         super().__init__()

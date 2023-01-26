@@ -1,8 +1,7 @@
 from turtle import Screen
 from time import sleep
 from snake import Snake
-from food import Food
-# from food import SuperFood
+from food import Food, SuperFood
 from scoreboard import Scoreboard
 
 screen = Screen()
@@ -21,6 +20,7 @@ screen.onkey(snake.left, "Left")
 screen.onkey(snake.right, "Right")
 
 game_is_on = True
+superfood = SuperFood()
 
 
 def detect_wall_collision():
@@ -51,7 +51,11 @@ while game_is_on:
     # Detect eating food
     if snake.head.distance(food) < 15:
         food.generate_food()
-        scoreboard.increase_score()
+        scoreboard.increase_score(1)
+        snake.extend()
+    if snake.head.distance(superfood) < 15:
+        scoreboard.increase_score(5)
+        superfood.generate_super_food()
         snake.extend()
     # Detect running into a wall,
     # detect_wall_collision()

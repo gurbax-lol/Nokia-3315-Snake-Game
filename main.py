@@ -27,7 +27,7 @@ def detect_wall_collision():
     if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
         global game_is_on
         game_is_on = False
-        scoreboard.game_over()
+        scoreboard.reset()
 
 
 def loop_over_walls():
@@ -58,13 +58,13 @@ while game_is_on:
         superfood.generate_super_food()
         snake.extend()
     # Detect running into a wall,
-    # detect_wall_collision()
+    detect_wall_collision()
     # Start from the opposite edge if the snake has reached the screen's edge
-    loop_over_walls()
+    # loop_over_walls()
     # Detect collision with self
     for segment in snake.segments[1:]:
         if snake.head.distance(segment) < 10:
-            game_is_on = False
-            scoreboard.game_over()
+            scoreboard.reset()
+            snake.reset()
 
 screen.exitonclick()
